@@ -18,28 +18,25 @@
     <header class="main_header">
         <div class="d-flex justify-content-center align-items-center flex-column py-5">
           <h1 class="main_heading">
-            Blogger World
+            Connect Book
           </h1>
-          <p class="main_heading__para">Welcome to My <span class="text-capitalize bg-dark text-white
-            py-2  px-3">World of Technology</span> </p>
+          <p class="main_heading__para">Welcome to New <span class="text-capitalize bg-dark text-white
+            py-2  px-3">World of Friendship</span> </p>
         </div>
     
         <div class="main_header__div d-flex  align-items-start justify-content-center py-5 pl-5 flex-column shadow">
-          <p>Shailendra Srivastava</p>
+          <p><%=currentuser.username%> </p>
+          
           <h2 class="animateWord">
-            <span>He is</span>
+            <!-- <span>    </span> -->
             <div>
               <ul class="flip">
-                <li>Dancer</li>
-                <li>Coder</li>
-                <li>Programmer</li>
-                <li>Web Developer</li>
-                <li class="d-none">Programmer</li>
-                <li  class="d-none">Web Developer</li>
+                <% currentuser.hobbies.forEach(element =>{%> 
+                 <li><%=element%></li>
+                <%})%> 
               </ul>
             </div>
           </h2>
-          <button class="text-uppercase mb-4 ">
-            <a href="/blogs">Home</a> 
-         </button>
+           
+          
   

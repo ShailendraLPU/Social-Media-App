@@ -16,14 +16,14 @@ router.get('/', (req, res) => {
 
 
 router.get('/blogs/massenger', (req, res) => {
-    // res.sendFile('/public/index.html');
+    res.render('massenger/massenger');
 })
 
 router.get('/blogs', isLogged, async (req, res) => {
 
     try {
         const blogs = await Blog.find({}).populate('reviews');
-        res.render('home', { blogs });
+        res.render('home',{blogs});
     }
     catch (e) {
         req.flash('error', 'Something Went Wront');
@@ -33,7 +33,7 @@ router.get('/blogs', isLogged, async (req, res) => {
 
 router.post('/blogs',isLogged,uploads.single('image'),async (req,res)=>{
     try {
-         const result = await cloudinary.v2.uploader.upload(req.file.path)
+         const result = await cloudinary.v2.uploader.upload(req.file.path);
          const blogs = await Blog.create({imgurl:result.secure_url,like:0,...req.body.Blog});
          res.redirect(`blogs/userblogs/${req.user.username}`);
     }
@@ -46,8 +46,9 @@ router.post('/blogs',isLogged,uploads.single('image'),async (req,res)=>{
 
 router.get('/blogs/userblogs/:user', isLogged, async (req, res) => {
     try {
-        const blogs = await Blog.find({ user: req.params.user }).populate('reviews');
-        res.render('myblogs', { blogs });
+        const myblogs = await Blog.find({ user: req.params.user }).populate('reviews');
+        const blogs = await Blog.find({});
+        res.render('myblogs', { blogs,myblogs });
     }
     catch (e) {
         req.flash('error', 'Something Went Wront');

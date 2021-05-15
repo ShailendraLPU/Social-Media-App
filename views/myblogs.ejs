@@ -1,9 +1,12 @@
 <%- include('./partials/header') %>
-  <%if(currentuser){%>
+  
     <button class="text-uppercase mb-4 ">
-      <a href="/blogs/userblogs/<%=currentuser.username%>">MyBlogs</a>
+      <a href="/blogs">Home</a>
     </button>
-    <%}%>
+    <button class="text-uppercase mb-4 ">
+      <a href="/blogs/massenger">Massenger</a>
+    </button>
+    
 
       <button class="text-uppercase mb-4">
         <a href="/blogs/newblog">Create New Blog</a>
@@ -30,7 +33,7 @@
                   <div class="row gx-5 mx-sm-auto">
                     <%-include('./partials/flash')%>
                       <div class="col-lg-9 col-md-11 mx-auto">
-                        <% for(let blog of blogs) {%>
+                        <% for(let blog of myblogs) {%>
                           <div class="row gy-5">
 
                             <div class="col-12 card p-4 shadow blog_left__div">
@@ -38,21 +41,16 @@
                                 <h1>
                                   <%= blog.title %>
                                 </h1>
-                                <p class="blog-title"><span class="font-weight-bold"> Asum PXY08 World of Technology,
-                                    July 12,
-                                    2020</span></p>
+                                <p class="blog-title"><span class="font-weight-bold"> <%=blog.about%> </span></p>
                               </div>
                               <figure class="right_side__img mb-5">
                                 <img src="<%= blog.imgurl  %> " class="img-fluid shadow" alt="" srcset="">
                               </figure>
                               <p>
-                                <span class="font-weight-bold fs-1">@ <%= blog.user %>:</span>
+                                <span class="font-weight-bold fs-1"><%=blog.user%>:</span>
                                 <%= blog.desc %>
                               </p>
-                              <p>
-                                <%= blog.desc %>
-                              </p>
-
+                              
                               <div class="d-flex justify-content-between left_div_btns">
                                 <div>
       

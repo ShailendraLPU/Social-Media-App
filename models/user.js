@@ -19,7 +19,19 @@ const userSchema = new mongoose.Schema({
             unique:true,
             
         }
+    ],
+    profile:
+    {
+        type:String
+    },
+    hobbies:
+    [
+        {
+            type:String,
+        }
     ]
+
+
 })
 userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model('User',userSchema);

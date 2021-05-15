@@ -2,122 +2,55 @@
   <div class="row gy-5 left_div_blog">
 
     <div class="col-12 about_me_div shadow">
-     
+        <img src="<%=currentuser.profile%> " alt="">
      
     </div>
     <div class="popular_post">
       <div class="right_div_title py-4 pl-2">
-        <h2>Popular Posts</h2>
+        <h2>Recent Posts</h2>
       </div>
       <div class="right_sub_div shadow">
+        <% for(let i=1;i<=4;i++){ %> 
         <div class="row">
           <div class="col-3  popular_post__img1 py-2 pl-2">
 
           </div>
           <div class="col-9 ">
-            <h3>Bill Gates</h3>
-            <p>Lorem ipsum dolor sit </p>
+            <h3><%=blogs[blogs.length-i].user%></h3>
+            <p><%=blogs[blogs.length-i].title%></p>
           </div>
         </div>
-        <div class="row">
-          <div class="col-3  popular_post__img2 py-2 pl-2">
-
-          </div>
-          <div class="col-9 ">
-            <h3>Bill Gates</h3>
-            <p>Lorem ipsum dolor sit </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-3  popular_post__img3 py-2 pl-2">
-
-          </div>
-          <div class="col-9 ">
-            <h3>Bill Gates</h3>
-            <p>Lorem ipsum dolor sit </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-3  popular_post__img4 py-2 pl-2">
-
-          </div>
-          <div class="col-9 ">
-            <h3>Bill Gates</h3>
-            <p>Lorem ipsum dolor sit </p>
-          </div>
-        </div>
+        <% } %> 
+       
+       
       </div>
     </div>
 
-    <div class="right_div_post">
-      <div class="right_div_title py-4 pl-2">
-        <h2>Advertisement</h2>
-      </div>
-      <div class="right_sub_div">
-        <div class="advertise_img bg-light shadow">
-          <p>Add goes Here</p>
-        </div>
-      </div>
-    </div>
 
-    <div class="right_div_post">
-      <div class="right_div_title py-4 pl-2">
-        <h2>Tags</h2>
-      </div>
-      <div class="tags_main right_sub_div">
-        <a class="badge shadow text-capitalize"
-          href="https://www.linkedin.com/in/shailendra-srivastava-75b655169/">Linkdin</a>
-        <a href="#" class="badge shadow text-capitalize">Java</a>
-        <a href="#" class="badge shadow text-capitalize">HTML</a>
-        <a href="#" class="badge shadow text-capitalize">css</a>
-        <a href="#" class="badge shadow text-capitalize">Linkdin</a>
-        <a href="#" class="badge shadow text-capitalize">Linkdin</a>
-        <a href="#" class="badge shadow text-capitalize">Linkdin</a>
-        <a href="#" class="badge shadow text-capitalize">Linkdin</a>
-        <a href="#" class="badge shadow text-capitalize">Linkdin</a>
-      </div>
-    </div>
-    <div class="right_div_post">
+  
+    <div class="right_div_post mb-4">
       <div class="right_div_title py-4 pl-2">
         <h2>Inspiration</h2>
       </div>
       <div class=" right_sub_div">
         <div class="row gx-3">
+          <% for(let i=1;i<=4;i++){%> 
           <div class="col-6">
             <figure>
               <img class="img-fluid shadow"
-                src="https://images.unsplash.com/photo-1593642532871-8b12e02d091c?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1900&q=80"
+                src="<%=blogs[blogs.length-i].imgurl%>"
                 alt="">
             </figure>
           </div>
-          <div class="col-6">
-            <figure>
-              <img class="img-fluid shadow"
-                src="https://images.unsplash.com/photo-1593642634367-d91a135587b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80"
-                alt="">
-            </figure>
-          </div>
-
-          <div class="col-6">
-            <figure>
-              <img class="img-fluid shadow"
-                src="https://images.unsplash.com/photo-1593642634367-d91a135587b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80"
-                alt="">
-            </figure>
-          </div>
-          <div class="col-6">
-            <figure>
-              <img class="img-fluid shadow"
-                src="https://images.unsplash.com/photo-1593642532871-8b12e02d091c?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1900&q=80"
-                alt="">
-            </figure>
-          </div>
+          <% } %> 
         </div>
 
       </div>
-      <div class="right_div_post">
+      </div>
+
+      <div class="right_div_post ">
         <div class="right_div_title py-4">
-          <h2>Follow Me</h2>
+          <h2>Contact Me</h2>
         </div>
         <div class="right_sub_div d-flex justify-content-around">
           <a href="#"><i class="fab fa-facebook-square fa-3x"></i></a>
@@ -130,13 +63,13 @@
       </div>
       <div class="right_div_post">
         <div class="right_div_title py-4">
-          <h2>Subscribe</h2>
+          <h2>Feedback</h2>
         </div>
         <div class="right_sub_div">
           <form>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              <input type="mail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                 placeholder="sobhit6548@gmail.com">
 
             </div>
@@ -167,7 +100,7 @@
   let form = document.querySelectorAll('.Like_btn');
   for (let ev of form) {
     ev.addEventListener('submit', (e) => {
-      // console.log(e);
+      
       e.preventDefault();
     })
   }
