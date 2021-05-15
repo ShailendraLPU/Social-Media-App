@@ -1,0 +1,56 @@
+<%- include('./partials/header')  %> 
+  
+      <button class="text-uppercase mb-4 ">
+         <a href="/blogs/userblogs/<%=currentuser.username%> ">Myblogs</a> 
+      </button>
+      <button class="text-uppercase ">
+        <a href="/blogs/newblog">Create New blog</a> 
+     </button>
+    </div>
+  </header>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-10 col-lg-10 col-md-11 col-11 mx-auto my-5">
+        <div class="row gx-5 mx-sm-auto">
+          <div class="col-lg-9 col-md-11 mx-auto">
+          
+            <div class="row gy-5">
+              
+              <form method="POST" action="/blogs/<%=blog._id%>?_method=PATCH">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">blogger Name</label>
+                  <input type="text" class="form-control fs-2" value="<%= blog.user %>" id="exampleInputEmail1" aria-describedby="emailHelp" name="blog[user]">
+                </div>
+            
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">blog Title</label>
+                  <input type="text" class="form-control fs-2" value="<%=blog.title%>" id="exampleInputPassword1" name="blog[title]">
+                </div>
+                
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">blog About</label>
+                  <input type="text" class="form-control fs-2" value="<%=blog.about%>" id="exampleInputPassword1" name="blog[about]">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">blog Image Url</label>
+                    <input type="text" class="form-control fs-2" value="<%=blog.imgurl%>" id="exampleInputPassword1"  name="blog[imgurl]">
+                  </div>
+
+                  
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">blog Description</label>
+                    <input type="text" class="form-control fs-2" value="<%=blog.desc %>" id="exampleInputPassword1"  name="blog[desc]">
+                </div>
+                <button type="submit" class="subs_btn btn-primary">Submit</button>
+              </form>
+              <form  action="/blogs/usersblog/<%=blog._id%>?_method=DELETE" method="POST"><button class="subs_btn" type="submit">Delete</button></form>
+
+              
+
+
+            </div>
+          
+          </div>
+        <%-  include('./partials/footer') %> 

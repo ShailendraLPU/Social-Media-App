@@ -1,0 +1,146 @@
+<%- include('./partials/header') %>
+  <%if(currentuser){%>
+    <button class="text-uppercase mb-4 ">
+      <a href="/blogs/userblogs/<%=currentuser.username%>">MyBlogs</a>
+    </button>
+    <%}%>
+
+      <button class="text-uppercase mb-4">
+        <a href="/blogs/newblog">Create New Blog</a>
+      </button>
+
+      <%if(!currentuser){%>
+        <button class="text-uppercase ">
+          <a href="/blogs/login">LogIN</a>
+        </button>
+
+        <% } else { %>
+          <button class="text-uppercase ">
+            <a href="/blogs/logout">Logout</a>
+          </button>
+
+          <%}%>
+
+            </div>
+            </header>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-xl-10 col-lg-10 col-md-11 col-11 mx-auto my-5">
+                  <div class="row gx-5 mx-sm-auto">
+                    <%-include('./partials/flash')%>
+                      <div class="col-lg-9 col-md-11 mx-auto">
+                        <% for(let blog of blogs) {%>
+                          <div class="row gy-5">
+
+                            <div class="col-12 card p-4 shadow blog_left__div">
+                              <div class="d-flex justify-content-center align-items-center flex-column pt-3 pb-5">
+                                <h1>
+                                  <%= blog.title %>
+                                </h1>
+                                <p class="blog-title"><span class="font-weight-bold"> Asum PXY08 World of Technology,
+                                    July 12,
+                                    2020</span></p>
+                              </div>
+                              <figure class="right_side__img mb-5">
+                                <img src="<%= blog.imgurl  %> " class="img-fluid shadow" alt="" srcset="">
+                              </figure>
+                              <p>
+                                <span class="font-weight-bold fs-1">@ <%= blog.user %>:</span>
+                                <%= blog.desc %>
+                              </p>
+                              <p>
+                                <%= blog.desc %>
+                              </p>
+
+                              <div class="d-flex justify-content-between left_div_btns">
+                                <div>
+      
+                                  <form class="subs_btn Like_btn1" method="POST" action="/blogs/like/<%=currentuser._id%>/<%=blog._id%>?name=usersblog">
+                                  <button type="submit"> <i class="far fa-thumbs-up"></i>
+                                  <badge class="bg-white text-dark p-2"><%=blog.like%></badge>
+                                  </button></form>
+                               
+                              </div>
+
+                              
+                              <div>
+                                
+                                <form class="subs_btn Like_btn" onclick="reply('reply<%=blog._id%>')"><button
+                                    type="submit"><i class="far fa-comments"></i>
+                                    <badge class="bg-white text-dark p-2"><%=blog.reviews.length%></badge>
+                                  </button></form>
+                                
+                              </div>
+
+
+                                <div>
+        
+                                  <form class="subs_btn" method="GET" action="/blogs/edit/<%=blog._id%>">
+                                   <button>Edit
+                                    
+                                    </button></form>
+                                 
+                                </div>
+
+                              </div>
+                              <div class="replies reply<%=blog._id%>">
+                                <%for(let rev of blog.reviews){%>
+                                  <div
+                                    class="d-flex justify-content-start flex-row align-items-center align-self-center card reply_card py-3">
+                                    <div class="reply_img mx-2 align-items-center">
+                                      <img src="https://img.icons8.com/dusk/64/000000/user-male-skin-type-7.png" />
+                                    </div>
+                                    <div class="reply_text__left">
+                                      <p class="blog_title">
+                                        <span class="font-weight-bold">
+                                          <%=rev.user%>
+                                        </span>
+                                        <%=rev.date%>
+                                      </p>
+                                      <p>
+                                        <%=rev.comment%>
+                                      </p>
+                                      <p><form  class=" Like_btn1" method="POST" action="/blogs/comment/<%=blog._id%>/<%=rev._id%>?_method=DELETE">
+                                        <button class="subs_btn" type="submit"> Delete
+                                      </button></form></p>
+                                      
+                                    </div>
+                                  </div>
+                                  <% } %>
+                                    <%if(currentuser){%>
+                                      <div
+                                        class="d-flex justify-content-start flex-row align-items-center align-self-center card reply_card py-3">
+                                        <div class="reply_img mx-2 align-items-center">
+                                          <img src="https://img.icons8.com/dusk/64/000000/user-male-skin-type-7.png" />
+                                        </div>
+
+                                        <div class="reply_text__left">
+                                          <form action="/blogs/comment/<%=blog._id%>?_method=PUT" method="POST">
+                                            <p class="blog_title">
+                                              <span class="font-weight-bold">
+                                                <%= currentuser.username %>
+                                              </span>
+                                            </p>
+                                            <p > <input class="mb-3" type="text" name="comment" placeholder="Comment"> <span
+                                                class="subs_btn "><button type="submit">Save</button></span></p>
+                                                
+                                          </form>
+
+                                        </div>
+                                        <% } %>
+                                      </div>
+
+                              </div>
+
+                            </div>
+
+
+
+
+
+
+                          </div>
+                          <% } %>
+                      </div>
+                      <%- include('./partials/footer') %>
