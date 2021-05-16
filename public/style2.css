@@ -22,10 +22,25 @@ a:hover{
    color: white;
    border-color: white;
 }
+
+.color1
+{
+color: white;
+}
 body
 {
     width: 100%;
     height: 100%;
     opacity: 0.9;
-    background-image: url('/public/img/img1.jfif');   
+    
+    background-size: cover;
+    
+    background-image: url('https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
 }
+
+@media (max-width:768px) {
+    body{
+        background-size:auto;
+        /* background-position: bottom; */
+    background-image: url('https://images.unsplash.com/photo-1596326270763-87f26e0f9225?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1868&q=80');
+}}
