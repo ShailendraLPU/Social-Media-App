@@ -21,13 +21,21 @@ html
 {
     font-size: 62.5% ;
 }
-
+body{
+    height: 100vh;
+    
+}
 p,label,input::placeholder{
     font-size: 1.9rem;
     line-height: 170%;
     color: #6c757d;
 }
 
+#overflow-part
+{
+    overflow-y: scroll;
+    height: 240vh;
+}
 figure img, .fab,.fas{
 transition: var(--eff);
 }
@@ -109,14 +117,9 @@ body{
 }
 
 
-.animateWord div li
+.main_header__div div ul
 {
-    font-family: var(--title); 
-    font-weight: bold;
-    padding: 0 1rem;
-    height: 4.5rem;
-    margin-bottom: 4.5rem;
-    display: block;
+   padding-left: 0;
 }
 
 .main_header__div div li
@@ -127,6 +130,7 @@ body{
     padding: 0 1rem;
     height: 4.5rem;
     margin-bottom: 4.5rem;
+    margin-top: 3rem;
     display: block;
   
 } 
@@ -502,11 +506,16 @@ font-size: 1.8rem;
 
     
     .main_header h2{
-        height: 5rem;
+        height: 6rem;
         font-size: 3.5rem;
     }
     .main_heading{
         font-size: 4rem;
+    }
+
+    .main_header__div div ul
+    {
+           padding-left: 0;
     }
 
     .main_header__div div li {
@@ -520,6 +529,13 @@ font-size: 1.8rem;
         margin-top: -2rem;
         display: block;
     }
+
+    
+#overflow-part
+{
+    overflow-y: scroll;
+    height: 110vh;
+}
 
 }
 

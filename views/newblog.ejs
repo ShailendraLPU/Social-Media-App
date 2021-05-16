@@ -1,71 +1,70 @@
-<%- include('./partials/header')  %> 
-  
-      <button class="text-uppercase mb-4 ">
-         <a href="/blogs/userblogs/<%=currentuser.username%> ">MyBlogs</a> 
-      </button>
-      <button class="text-uppercase mb-4">
-        <a href="/blogs/newblog">Create New Blog</a> 
-     </button>
-     
-     <%if(!currentuser){%>
+<%- include('./partials/header')%>
+
+
+  <button class="text-uppercase mb-4 ">
+    <a href="/blogs">Home</a>
+  </button>
+  <button class="text-uppercase mb-4 ">
+    <a href="/blogs/userblogs/<%=currentuser.username%> ">MyBlogs</a>
+  </button>
+  <button class="text-uppercase mb-4">
+    <a href="/blogs/newblog">Create New Blog</a>
+  </button>
+
+  <%if(!currentuser){%>
+    <button class="text-uppercase ">
+      <a href="/blogs/login">LogIN</a>
+    </button>
+
+    <% } else { %>
       <button class="text-uppercase ">
-        <a href="/blogs/login">LogIN</a>
+        <a href="/blogs/logout">Logout</a>
       </button>
 
-      <% } else { %>
-        <button class="text-uppercase ">
-          <a href="/blogs/logout">Logout</a>
-        </button>
+      <%}%>
+        </div>
+        </header>
 
-        <%}%>
-    </div>
-  </header>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xl-10 col-lg-10 col-md-11 col-11 mx-auto my-5">
+              <div class="row gx-5 mx-sm-auto">
+                <div class="col-lg-9 col-md-11 mx-auto">
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xl-10 col-lg-10 col-md-11 col-11 mx-auto my-5">
-        <div class="row gx-5 mx-sm-auto">
-          <div class="col-lg-9 col-md-11 mx-auto">
-          
-            <div class="row gy-5">
-              
-              <form action="/blogs" method="POST" enctype="multipart/form-data">
-                <div class="mb-3">
+                  <div class="row gy-5">
 
-                  <label for="exampleInputEmail1" class="form-label">Blogger Name</label>
-                  <input type="text" class="form-control fs-2" id="exampleInputEmail1" aria-describedby="emailHelp" name="Blog[user]">
-    
-                </div>
-            
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Blog Title</label>
-                  <input type="text" class="form-control fs-2" id="exampleInputPassword1" name="Blog[title]">
-                </div>
+                    <form action="/blogs" method="POST" enctype="multipart/form-data">
 
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Blog About</label>
-                  <input type="text" class="form-control fs-2" id="exampleInputPassword1" name="Blog[about]">
-                </div>
 
-                <div class="mb-3">
-                    <label for="image" class="form-label">Blog Image Url</label>
-                    <input type="file" class="form-control fs-2" id="image"  name="image">
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Blog Title</label>
+                        <input type="text" class="form-control fs-2" id="exampleInputPassword1" name="Blog[title]">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Blog About</label>
+                        <input type="text" class="form-control fs-2" id="exampleInputPassword1" name="Blog[about]">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="image" class="form-label">Blog Image Url</label>
+                        <input type="file" class="form-control fs-2" id="image" name="image">
+                      </div>
+
+
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Blog Description</label>
+                        <input type="text" class="form-control fs-2" id="exampleInputPassword1" name="Blog[desc]">
+                      </div>
+
+                      <button type="submit" class="subs_btn btn-primary">Submit</button>
+                    </form>
+
+
+
+
+
                   </div>
 
-                  
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Blog Description</label>
-                    <input type="text" class="form-control fs-2" id="exampleInputPassword1"  name="Blog[desc]">
                 </div>
-                
-                <button type="submit" class="subs_btn btn-primary">Submit</button>
-              </form>
-             
-
-              
-
-
-            </div>
-          
-          </div>
-        <%-  include('./partials/footer') %> 
+                <%- include('./partials/footer') %>

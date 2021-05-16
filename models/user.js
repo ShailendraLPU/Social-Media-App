@@ -16,8 +16,7 @@ const userSchema = new mongoose.Schema({
         {
             type:mongoose.Schema.Types.ObjectId,
             ref: 'blog',
-            unique:true,
-            
+            unique:true
         }
     ],
     profile:

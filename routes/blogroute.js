@@ -34,7 +34,7 @@ router.get('/blogs', isLogged, async (req, res) => {
 router.post('/blogs',isLogged,uploads.single('image'),async (req,res)=>{
     try {
          const result = await cloudinary.v2.uploader.upload(req.file.path);
-         const blogs = await Blog.create({imgurl:result.secure_url,like:0,...req.body.Blog});
+         const blogs = await Blog.create({imgurl:result.secure_url,like:0,user:req.user.username,...req.body.Blog});
          res.redirect(`blogs/userblogs/${req.user.username}`);
     }
     catch (e) {
@@ -58,14 +58,17 @@ router.get('/blogs/userblogs/:user', isLogged, async (req, res) => {
 })
 
 
-router.get('/blogs/newblog', isLogged, (req, res) => {
-    res.render('newblog');
+router.get('/blogs/newblog', isLogged, async(req, res) => {
+    const blogs = await Blog.find({});
+    res.render('newblog',{blogs});
 })
 
 
 router.get('/blogs/edit/:id', isLogged, async (req, res) => {
+    
+    const blogs = await Blog.find({});;
     const blog = await Blog.findById(req.params.id);
-    res.render('editblog', { blog });
+    res.render('editblog', {blog,blogs});
 })
 
 
