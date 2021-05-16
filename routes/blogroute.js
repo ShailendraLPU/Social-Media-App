@@ -7,7 +7,7 @@ const User = require('../models/user');
 const cloudinary = require('cloudinary');
 const uploads = require('../multer');
 const path = require('path');
-// const { startSession } = require('../models/user');
+
 require('../cloudinary');
 
 router.get('/', (req, res) => {
@@ -35,6 +35,7 @@ router.post('/blogs',isLogged,uploads.single('image'),async (req,res)=>{
     try {
          const result = await cloudinary.v2.uploader.upload(req.file.path);
          const blogs = await Blog.create({imgurl:result.secure_url,like:0,user:req.user.username,...req.body.Blog});
+         req.flash('success','Post Created Successfully')
          res.redirect(`blogs/userblogs/${req.user.username}`);
     }
     catch (e) {
@@ -59,6 +60,7 @@ router.get('/blogs/userblogs/:user', isLogged, async (req, res) => {
 
 
 router.get('/blogs/newblog', isLogged, async(req, res) => {
+
     const blogs = await Blog.find({});
     res.render('newblog',{blogs});
 })
@@ -111,7 +113,7 @@ router.get('/blogs/dislike/:userid/:id', isLogged, async (req, res) => {
     const blog1 = await blog.like - 1;
     await Blog.findByIdAndUpdate(req.params.id, { $set: { like: blog1 } });
     const user = await User.findByIdAndUpdate(req.params.userid, { $pull: { liked: req.params.id } });
-    // await user.save();
+    
     console.log(req.query.name=="usersblog");
     if(req.query.name=="usersblog"){
     res.redirect(`/blogs/userblogs/${req.user.username}`);}
@@ -161,7 +163,7 @@ router.delete('/blogs/comment/:blogid/:id', isLogged, async (req, res) => {
 
 
 router.delete('/blogs/usersblog/:id', isLogged, async (req, res) => {
-    // res.send("hii")
+    
     const blog = await Blog.findByIdAndDelete(req.params.id);
     res.redirect(`/blogs/userblogs/${req.user.username}`);
 
