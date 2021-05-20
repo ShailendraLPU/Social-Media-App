@@ -26,7 +26,7 @@ const path = require('path');
 const seedblog = require('./seed');
 const { isLogged } = require('./middleware');
  
-mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify:false})
 .then(e=>
     {
         console.log("DB connected Succesfully");

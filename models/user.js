@@ -1,8 +1,5 @@
 const mongoose  = require('mongoose');
-const blog =  require('../models/blog');
-
 const passportLocalMongoose = require('passport-local-mongoose');
-
 
 const userSchema = new mongoose.Schema({
     email:
@@ -12,18 +9,22 @@ const userSchema = new mongoose.Schema({
         required:true,
     },
     liked:
-    [
+    
         {
             type:mongoose.Schema.Types.ObjectId,
-            ref: 'blog',
-            unique:true
         }
-    ],
+    ,
     profile:
     {
         type:String
     },
     hobbies:
+    [
+        {
+            type:String,
+        }
+    ],
+    friends:
     [
         {
             type:String,

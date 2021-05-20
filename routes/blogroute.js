@@ -1,12 +1,15 @@
 const express = require('express');
 const Blog = require('../models/blog');
 const Review = require('../models/review');
+const mongoose = require('mongoose');
 const router = express.Router();
 const { isLogged } = require('../middleware');
 const User = require('../models/user');
 const cloudinary = require('cloudinary');
 const uploads = require('../multer');
 const path = require('path');
+const Like = require('../models/like');
+const { Mongoose } = require('mongoose');
 
 require('../cloudinary');
 
@@ -34,7 +37,7 @@ router.get('/blogs', isLogged, async (req, res) => {
 router.post('/blogs',isLogged,uploads.single('image'),async (req,res)=>{
     try {
          const result = await cloudinary.v2.uploader.upload(req.file.path);
-         const blogs = await Blog.create({imgurl:result.secure_url,like:0,user:req.user.username,...req.body.Blog});
+         const blogs = await Blog.create({like:0,imgurl:result.secure_url,user:req.user.username,...req.body.Blog});
          req.flash('success','Post Created Successfully')
          res.redirect(`blogs/userblogs/${req.user.username}`);
     }
@@ -82,44 +85,40 @@ router.patch('/blogs/:id', isLogged, async (req, res) => {
 })
 
 
-router.post('/blogs/like/:userid/:id', isLogged, async (req, res) => {
+router.post('/blogs/like/:userid/:id', isLogged, async(req, res) => {
     const { userid, id } = req.params;
     const user = await User.findById(userid);
+    const like = await Like.findById(user.liked);
+
     
-    await user.liked.forEach( element => {
-        if (element._id == id) {
-            if(req.query.name=="usersblog"){
-            res.redirect(`/blogs/dislike/${userid}/${id}?name=usersblog`);}
-            res.redirect(`/blogs/dislike/${userid}/${id}`);
+    await like.liked.forEach(async element => {
+         if(element._id == id) {
+         await Like.findByIdAndUpdate(user.liked,{$pull:{liked:req.params.id}});
+         const blog = await Blog.findById(req.params.id);
+         const blog1 = await blog.like - 1;
+         await Blog.findByIdAndUpdate(req.params.id,{$set:{like:blog1}});
+         if(req.query.name=="usersblog"){
+            res.redirect(`/blogs/userblogs/${req.user.username}`);}
+           else{ 
+            res.redirect(`/blogs`);
+           }
         }
     });
-    await user.liked.push(id);
-    await user.save();
+    const item =  await like.liked.push(id);
+    await like.save();
     const blog = await Blog.findById(id);
     const blog1 = await blog.like + 1;
-    await Blog.findByIdAndUpdate(id, { $set: { like: blog1 } });
-    console.log(req.query.name=="usersblog");
+    await Blog.findByIdAndUpdate(id,{$set:{like:blog1}});
     if(req.query.name=="usersblog"){
-        res.redirect(`/blogs/userblogs/${req.user.username}`);}
-        
-        res.redirect(`/blogs`);
+        res.redirect(`/blogs/userblogs/${req.user.username}`);
+    }
+    else
+       { 
+        res.redirect('/blogs');
+       }
     
 });
 
-
-router.get('/blogs/dislike/:userid/:id', isLogged, async (req, res) => {
-  
-    const blog = await Blog.findById(req.params.id);
-    const blog1 = await blog.like - 1;
-    await Blog.findByIdAndUpdate(req.params.id, { $set: { like: blog1 } });
-    const user = await User.findByIdAndUpdate(req.params.userid, { $pull: { liked: req.params.id } });
-    
-    console.log(req.query.name=="usersblog");
-    if(req.query.name=="usersblog"){
-    res.redirect(`/blogs/userblogs/${req.user.username}`);}
-    res.redirect(`/blogs`)
-
-})
 
 
 router.put('/blogs/comment/:id', isLogged, async (req, res) => {

@@ -33,8 +33,9 @@
                   <div class="col-lg-8 col-md-11 mx-auto" id="overflow-part">
 
                     <% for(let blog of blogs) {%>
+                      <% if(currentuser.username!=blog.user){ %> 
                       <div class="row gy-5">
-
+                         
                         <div class="col-12 card p-4 shadow blog_left__div">
                           <div class="d-flex justify-content-center align-items-center flex-column pt-3 pb-5">
                             <h1>
@@ -64,6 +65,7 @@
                                 </button>
                               </form>
                             </div>
+                            
 
 
                             <div>
@@ -80,6 +82,7 @@
                           </div>
                           <div class="replies reply<%=blog._id%>">
                             <%for(let rev of blog.reviews){%>
+                             
                               <div
                                 class="d-flex justify-content-start flex-row align-items-center align-self-center card reply_card py-3">
                                 <div class="reply_img mx-2 align-items-center">
@@ -97,7 +100,8 @@
                                   </p>
                                 </div>
                               </div>
-                              <% } %>
+                            
+                              <% } %> 
                                 <%if(currentuser){%>
                                   <div
                                     class="d-flex justify-content-start flex-row align-items-center align-self-center card reply_card py-3">
@@ -124,12 +128,8 @@
 
                         </div>
 
-
-
-
-
-
                       </div>
+                      <% } %>
                       <% } %>
                   </div>
                   <%- include('./partials/footer') %>

@@ -1,11 +1,10 @@
 const express = require('express');
-
 const router  = express.Router();
-const mongoose = require('mongoose');
 const passport = require('passport');
 const User = require('../models/user');
 const cloudinary = require('cloudinary');
 const uploads = require('../multer');
+const Like = require('../models/like');
 require('../cloudinary');
 
 router.get('/blogs/register',(req,res)=>
@@ -20,9 +19,12 @@ router.post('/blogs/register',uploads.single('image'),async(req,res)=>
 {
  try{
   const result = await cloudinary.v2.uploader.upload(req.file.path);
-  const user =new User({email:req.body.email,username:req.body.username,profile:result.secure_url,hobbies:req.body.hobbie});
-  await user.liked.push(mongoose.Types.ObjectId());
+  const like = await Like.create({user:req.body.username});
+  const user =new User({email:req.body.email,username:req.body.username,liked:like,profile:result.secure_url,hobbies:req.body.hobbie});
+  // await user.liked.push(mongoose.Types.ObjectId());
   await User.register(user,req.body.password);
+  
+  
   
   req.flash('success','Registered Successfully, Login to Continue');
   res.redirect('/blogs/login');
@@ -57,8 +59,5 @@ router.get('/blogs/logout',(req,res)=>
   req.flash('error','Logout Successfully');
   res.redirect('/blogs/login');
 })
-
-
-
 
 module.exports = router;
